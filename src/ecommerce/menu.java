@@ -1,8 +1,11 @@
 package ecommerce;
 
+import java.util.Scanner;
+
+import ecommerce.model.produto;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
+import ecommerce.controller.ProdutoController;
 
 public class menu {
 
@@ -11,8 +14,27 @@ public class menu {
 		
 		Scanner leia = new Scanner(System.in);
 		
-		int opcao, produto, id, cor, descricao, marca;
-		float preco, desconto;	
+		ProdutoController produtos = new ProdutoController();
+		
+		int opcao, id;
+		String Produto = null, cor = null, descricao = null, marca = null;
+		float preco = 0, desconto;	
+		
+		System.out.println("\nCriar Produtos\n");
+		
+		produto p1 = new produto(produtos.gerarID(), "Cadeira Gammer Out", "preto", "Cadeira Gammer profissional com inclinação e ajuste de altura", "Picchau", 350f, 0f);
+		produtos.cadastrar(p1);
+		
+		produto p2 = new produto(produtos.gerarID(), "Cadeira Gammer Prisma", "rosa", "Cadeira Gammer profissional com inclinação e ajustes", "Picchau", 250f, 0f);
+		produtos.cadastrar(p2);
+		
+		produto p3 = new produto(produtos.gerarID(), "Cadeira Gammer Circle", "azul", "Cadeira Gammer profissional com ajuste de altura", "Picchau", 250f, 0f);
+		produtos.cadastrar(p3);
+		
+		produtos.listarTodas();	
+		
+		System.out.println("\nCriar Produtos\n");
+	
 				
 		while (true) {
 			
@@ -30,8 +52,7 @@ public class menu {
 			System.out.println("            4 - Editar Produto		                 ");
 			System.out.println("            5 - Apagar Produto                       ");
 			System.out.println("            6 - Inserir Desconto                     ");
-			System.out.println("            7 - Criar Coleção                        ");
-			System.out.println("            8 - Sair                                 ");
+			System.out.println("            7 - Sair                                 ");
 			System.out.println("                                                     ");
 			System.out.println("*****************************************************");
 			System.out.println("Entre com a opção desejada:                          ");
@@ -39,15 +60,15 @@ public class menu {
 			
 			try {
 					
-					opcao = leia.nextInt();
+				opcao = leia.nextInt();
 					
-			}catch(InputMismatchException e){
+			} catch(InputMismatchException e){
 				System.out.println("\nDigite valores inteiros!");
 				leia.nextInt();
 				opcao=0;
 			}
 				
-				if (opcao == 8) {
+				if (opcao == 7) {
 					System.out.println("Gammer Chair, as melhores cadeiras gammers.");
 					sobre();
 					leia.close();
@@ -59,28 +80,30 @@ public class menu {
 					case 1 :
 						System.out.println("Criar produto\n\n");
 						
-						System.out.println("Digite o nome do produto: ");
-						produto = leia.nextInt();
-						System.out.println("Digite o ID do produto: ");
+						System.out.println("Digite o ID do produto: \n");
 						id = leia.nextInt();
-						System.out.println("Digite a cor do produto: ");
-						cor = leia.nextInt();
-						System.out.println("Digite a descrição do produto: ");
-						descricao = leia.nextInt();
-						System.out.println("Digite a marca do produto: ");
-						marca = leia.nextInt();
-						System.out.println("Digite o preço do produto: ");
+						System.out.println("Digite o nome do produto: \n");
+						Produto = leia.next();
+						System.out.println("Digite a cor do produto: \n");
+						cor = leia.next();
+						System.out.println("Digite a descrição do produto: \n");
+						descricao = leia.next();
+						System.out.println("Digite a marca do produto: \n");
+						marca = leia.next();
+						System.out.println("Digite o preço do produto: \n");
 						preco = leia.nextFloat();
+						
+						produtos.cadastrar(new produto(id, Produto, cor, descricao, marca, preco, 0f));
 						
 						keyPress();
 						break;
 						
-//						case 2 :
-//							System.out.println("Listar todas as contas\n\n");
-//							contas.listarTodas();
-//	
-//							keyPress();
-//							break;
+						case 2 :
+							System.out.println("Listar todos os produtos\n\n");
+							produtos.listarTodas();
+	
+							keyPress();
+							break;
 					
 					case 3 :
 						System.out.println("Buscar produto por id\n\n");
@@ -88,7 +111,7 @@ public class menu {
 						System.out.println("Digite o id do produto: ");
 						id = leia.nextInt();
 						
-//						contas.procurarPorNumero(numero);
+						produtos.procurarPorID(id);
 						
 						keyPress();
 						break;
@@ -99,23 +122,25 @@ public class menu {
 						System.out.println("Digite o id do produto: ");
 						id = leia.nextInt();
 						
-//						var buscaConta = contas.buscarNaCollection(numero);
+						var buscaProduto = produtos.buscarNaCollection(id);
 
-//						if (buscaConta != null) {
-//							
-//							System.out.println("Digite o Numero da Agência: ");
-//							agencia = leia.nextInt();
-//							System.out.println("Digite o Nome do Titular: ");
-//							leia.skip("\\R?");
-//							titular = leia.nextLine();
-//								
-//							System.out.println("Digite o Saldo da Conta (R$): ");
-//							saldo = leia.nextFloat();
-//							
-//							tipo = buscaConta.getTipo();
+						if (buscaProduto != null) {
 							
-//						}else
-//							System.out.println("\nProduto não encontrado!");
+							System.out.println("Digite o nome do produto: \n");
+							Produto = leia.next();
+							System.out.println("Digite a cor do produto: \n");
+							cor = leia.next();
+							System.out.println("Digite a descrição do produto: \n");
+							descricao = leia.next();
+							System.out.println("Digite a marca do produto: \n");
+							marca = leia.next();
+							System.out.println("Digite o preço do produto: \n");
+							preco = leia.nextFloat();
+							
+							produtos.atualizar(new produto(id, Produto, cor, descricao, marca, preco, 0f));
+							
+						}else
+							System.out.println("\nProduto não encontrado!");
 						
 						keyPress();
 						break;
@@ -126,39 +151,19 @@ public class menu {
 						System.out.println("Digite o id do produto: ");
 						id = leia.nextInt();
 							
-//						contas.deletar(numero);
+						produtos.deletar(id);
 						
 						keyPress();
 						break;
 						
-					case 6 :
-						System.out.println("Inserir desconto\n\n");
-						
+					case 6 :		
 						System.out.println("Digite o id do produto: ");
 						id = leia.nextInt();
 						
-//						do {
-//							System.out.println("Digite o valor do saque (R$): ");
-//							valor = leia.nextFloat();
-//						}while(valor <= 0);
-//						
-//						contas.sacar(numero, valor);					
+						System.out.println("Digite o valor do desconto (R$): ");
+						desconto = leia.nextFloat();
 						
-						keyPress();
-						break;
-						
-					case 7 :
-						System.out.println("Criar coleções\n\n");
-						
-						System.out.println("Digite o id do produto: ");
-						id = leia.nextInt();
-						
-//						do {
-//							System.out.println("Digite o valor do depósito (R$): ");
-//							valor = leia.nextFloat();
-//						}while(valor <= 0);
-//						
-//						contas.depositar(numero, valor);	
+						produtos.desconto(id, desconto);				
 						
 						keyPress();
 						break;
@@ -177,7 +182,7 @@ public class menu {
 			public static void sobre() {
 				System.out.println("*****************************************************");
 				System.out.println("Projeto Desenvolvido por: ");
-				System.out.println("Nathalia Martins Monteles");
+				System.out.println("Nathalia Martins Monteles pela Generation Brasil");
 				System.out.println("github.com/NathaliaMonteles");
 				System.out.println("*********************************************************");
 			}
