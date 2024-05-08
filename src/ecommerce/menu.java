@@ -1,5 +1,8 @@
 package ecommerce;
 
+import java.util.Scanner;
+
+//import ecommerce.model.produto;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,6 +16,13 @@ public class menu {
 		
 		int opcao, produto, id, cor, descricao, marca;
 		float preco, desconto;	
+		
+		System.out.println("\nCriar Produtos\n");
+		
+//		CadastroProduto = new produto(contas.gerarNumero(), "Cadeira Gammer Upset", "preto", "Cadeira com inclinação e ajuste de altura", "Picchau", 350.0f, 0f);
+//		contas.cadastrar(cc1);
+//		
+//		produtos.listarTodas();	
 				
 		while (true) {
 			
@@ -37,15 +47,15 @@ public class menu {
 			System.out.println("Entre com a opção desejada:                          ");
 			System.out.println("                                                     ");
 			
-			try {
-					
-					opcao = leia.nextInt();
-					
-			}catch(InputMismatchException e){
-				System.out.println("\nDigite valores inteiros!");
+//			try {
+//					
+//					opcao = leia.nextInt();
+//					
+//			}catch(InputMismatchException e){
+//				System.out.println("\nDigite valores inteiros!");
 				leia.nextInt();
 				opcao=0;
-			}
+//			}
 				
 				if (opcao == 8) {
 					System.out.println("Gammer Chair, as melhores cadeiras gammers.");
