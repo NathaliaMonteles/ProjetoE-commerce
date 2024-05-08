@@ -1,6 +1,6 @@
 package ecommerce.model;
 
-public abstract class produto {
+public class produto {
 	
 	private int id;
 	private String produto;
@@ -97,6 +97,11 @@ public abstract class produto {
 	System.out.println("Preço do produto: " + this.preco);
 	System.out.println("Desconto do produto: " + this.desconto);
 	
+	}
+
+	public static void atualizar(produto produto) {
+		// TODO Auto-generated method stub
+		
 	}
 		
 }
